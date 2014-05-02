@@ -1,0 +1,93 @@
+<?php
+    $records =  $this->formtest();
+    $url = Mage::getUrl('*/*');
+    if ($_SERVER['HTTPS'] == 'on') {
+          $url = str_replace('http:', 'https:', $url);
+    }
+    $id = (int) $this->getRequest()->getParam('id');
+    $siteurl =  Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
+    $skinurl =   $this->getSkinUrl(); 
+?>
+<?php echo $this->getChildHtml('global_messages') ?>
+<?php print $this->getLayout()->createBlock('core/messages')->toHtml(); ?>
+    <h1><?php //echo $this->__('Add Product') ?></h1>
+<!-- start center -->
+<div id="main" class="col-main">
+    <!-- start global messages -->
+        <?php echo $this->getChildHtml('global_messages') ?>
+    <!-- end global messages -->
+    <!-- start content -->
+        <?php echo $this->getChildHtml('content') ?>&nbsp;
+    <!-- end content -->
+</div>
+<!-- end center -->
+<form id="todo-form" action="<?php echo Mage::getUrl('test/index/save') ?>" method="post" enctype="multipart/form-data" >
+    <div class="CSSTableGenerator" >
+       <table>
+            <tr>
+                <td colspan = "2" > Add Product </td>
+            </tr>
+            <tr>
+                <td>
+                    <label  class="required" for="title"><em>*</em><?php echo $this->__('Title') ?></label>
+                </td>
+                <td>
+                <div class="input-box">
+                    <input id="title" class="input-text required-entry validate-title" title="<?php echo $this->__('Title') ?>" name="title" value="<?php echo $records['title']; ?>" type="text"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="required" for="description"><em>*</em><?php echo $this->__('Description') ?></label>
+                </td>
+                <td>
+                <div class="input-box">
+                    <textarea id="pass" class="input-text required-entry validate-description" title="<?php echo $this->__('Description') ?>"  name="description"><?php echo $records['description']; ?></textarea></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label class="required" for="image"><em>*</em><?php echo $this->__('Image') ?></label>
+                </td>
+                <td>
+                <div class="input-box">
+                    <input type="file" name="fileinputname" id="fileinputname" />    </br>
+                       <?php if($records['image'] != '') { 
+                    $path = Mage::getBaseDir('media') . DS ; ?>
+                    <div class="image-holder">
+                    <img class="imgarea" src="<?php echo  $siteurl.'media/'.$records['image']; ?>" >
+                    <img class="delImage" id="<?php echo $records['id']; ?>" title="Delete Image" src="<?php echo  $siteurl.'media/delete.png' ?>">
+                    </div>
+                <?php  }  ?>
+                </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <button id="send2" class="button" title="<?php echo $this->__('Submit') ?>">
+                        <span><span><?php echo $this->__('Submit') ?></span></span>
+                    </button> 
+                    <button class="button" style="" onclick="setLocation('<?php echo $siteurl; ?>index.php/test/index/')" class="scalable back" type="button" title="Cancel" ><span><span>Cancel</span></span></button>
+                    <input type="hidden" value="<?php echo $id; ?>" name="id" id="id" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>
+<script type="text/javascript">
+jQuery(".delImage").click(function(){
+
+    var s =  confirm("Are you sure you want to delete this?");
+
+    if(s == true)
+    {
+       var url = "<?php echo  $siteurl ; ?>";
+        window.location = url+'index.php/test/index/deleteImage/id/'+jQuery(this).attr('id');
+    }
+})
+        //<![CDATA[
+            var dataForm = new VarienForm('todo-form', true);
+        //]]
+</script>

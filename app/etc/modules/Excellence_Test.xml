@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Excellence_Test>   <!-- Name of Module -->
+            <active>true</active>  <!-- This says if the module is active or not -->
+            <codePool>local</codePool> <!-- This says the location of the module i.e inside the local folder. It can also be community folder. -->
+        </Excellence_Test>
+    </modules>
+</config>

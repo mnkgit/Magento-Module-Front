@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Excellence_Test>
+            <version>0.1.0</version>    <!-- Version of module -->
+        </Excellence_Test>
+    </modules>
+    <frontend>
+        <routers>
+            <test>
+                <use>standard</use>
+                <args>
+                    <module>Excellence_Test</module>
+                    <frontName>test</frontName>  <!-- This is the URL
+ of the module. i.e www.yourmagento.com/index.php/test will be the url of your module. -->
+                </args>
+            </test>
+        </routers>
+        <layout>
+          <updates>
+            <test>
+              <file>test.xml</file>
+            </test>
+          </updates>
+        </layout>
+    </frontend>
+
+
+<!-- 
+    <admin>
+     <routers>
+         <test>
+            <use>admin</use>
+            <args>
+               <module>Pfay_Test</module>
+               <frontName>admintest</frontName>
+            </args>
+         </test>
+      </routers>
+    </admin> -->
+       <!-- <adminhtml>
+         <layout>
+            <updates>
+                <test>
+                    <file>test.xml</file>
+                 </test>
+            </updates>
+         </layout>
+         <menu>
+            <test translate="title" module="adminhtml">
+               <title>My plugins1</title>
+               <sort_order>100</sort_order>
+               <children>
+                   <set_time>
+                         <title>Adress book1</title>
+                         <action>admintest/adminhtml_index</action>
+                    </set_time>
+                </children>
+             </test>
+          </menu>
+      </adminhtml>
+ -->
+
+
+
+    <global>
+      <models>
+            <test>
+                 <class>Excellence_Test_Model</class>
+                 <resourceModel>test_mysql4</resourceModel>
+            </test>
+            <test_mysql4>
+                 <class>Excellence_Test_Model_Mysql4</class>
+                 <entities>
+                     <test>
+                       <table>excellence_test</table>
+                     </test>
+                  </entities>
+            </test_mysql4>
+       </models> 
+
+        
+       <!-- allow the plugin to read and write -->
+        <!-- <resources> -->
+                <!-- connection to write -->
+                <!-- <test_write> -->
+                    <!-- <connection> -->
+                        <!-- <use>core_write</use> -->
+                    <!-- </connection> -->
+                <!-- </test_write> -->
+                <!-- connection to read -->
+               <!-- <test_read> -->
+                  <!-- <connection> -->
+                     <!-- <use>core_read</use> -->
+                  <!-- </connection> -->
+               <!-- </test_read> -->
+        <!-- </resources> -->
+         <!-- -/- -->
+      <blocks>
+         <test>
+              <class>Excellence_Test_Block</class>
+         </test>
+      </blocks>
+    </global>
+</config>

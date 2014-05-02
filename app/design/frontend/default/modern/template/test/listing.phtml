@@ -1,0 +1,74 @@
+<?php  $skinurl =   $this->getSkinUrl();  ?>
+<?php 
+    	$records =  $this->methodinblock();
+      	$cnt	= count($records);
+   	    $url = Mage::getUrl('*/*');
+        if ($_SERVER['HTTPS'] == 'on') {
+              $url = str_replace('http:', 'https:', $url);
+        }
+        $baseurl =  Mage::helper('core/url')->getHomeUrl();
+
+       $t = Mage::getBaseUrl (); 
+       $path = str_replace('index.php/','media/',$t);
+?>
+ <!-- FancyBox -->
+<script type="text/javascript">
+jQuery(document).ready(function(){   
+    jQuery("a[rel=fancybox]").fancybox({});
+    jQuery("a[rel=iframeLink]").fancybox({});
+    jQuery("#image_id").trigger('click');
+});
+</script>
+<!-- FancyBox --> 
+    <!-- start center -->
+    <div id="main" class="col-main">
+        <!-- start global messages -->
+            <?php echo $this->getChildHtml('global_messages') ?>
+        <!-- end global messages -->
+        <!-- start content -->
+            <?php echo $this->getChildHtml('content') ?>&nbsp;
+        <!-- end content -->
+    </div>
+    <!-- end center -->
+    <h1><?php echo $this->__('Product Listings') ?></h1>
+    <div class="CSSTableGenerator" >
+    <table border="1" >
+        <tbody>
+            <tr>
+                <td colspan="3" ></td>
+                <td colspan="2"><a href="<?php echo $baseurl.'test/index/new'; ?>" > Add New</a></td>
+            </tr>
+        	<tr>
+        		<td><strong>Title</strong></td>
+        		<td><strong>Description</strong></td>
+                <td><strong>Product Image</strong></td>
+        		<td><strong>Edit</strong></td>
+        		<td><strong>Delete<strong></td>
+        	</tr>
+                <?php for ($i=1; $i < $cnt; $i++) {  ?>
+                    <tr>
+                        <td>
+                             <?php echo $records[$i]['title']; ?>
+                        </td>
+                        <td>
+                            <?php echo $records[$i]['desc']; ?>
+                        </td>
+                        <td>
+                        <?php
+                            if($records[$i]['image'] != '' ) { ?>
+                            <a rel="iframeLink"   href="<?php echo $path.$records[$i]['image']; ?>" ><img class="imgarea" src="<?php echo $path.$records[$i]['image']; ?>" width="60" height="40" /></a>
+                            <?php  } else { ?>
+                            <a href="javascript:void(0);" ><img  class="imgarea" src="<?php echo $path.'noimage.jpeg'; ?>" width="60" height="40" /></a>
+                        <?php } ?>
+                        </td>
+                        <td>
+                            <a href="<?php echo $baseurl.'test/index/edit/id/'.$records[$i]['id']; ?>" >Edit </a>
+                        </td>
+                        <td>
+                            <a href="<?php echo $baseurl.'test/index/delete/id/'.$records[$i]['id']; ?>" >Delete</a>
+                        </td>
+                    </tr>
+                <?php } ?>
+        </tbody>
+    </table>
+</div>
